@@ -10,10 +10,10 @@ function App() {
       </div>
       <div className="w-full">
         <div>
-          <MainApp/>
+          <MainApp />
         </div>
         <div>
-          <Footer/>
+          <Footer />
         </div>
       </div>
     </div>

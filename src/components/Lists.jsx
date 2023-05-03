@@ -18,20 +18,20 @@ export default class Lists extends Component {
 
   render() {
     return (
-      <div className="w-[30%] mx-auto">
+      <div className="flex overflow-x-auto overflow-y-hidden border-t-2 bg-teal-100 sm:mx-auto sm:block sm:w-[30%] sm:border-none">
         <div>
-          <h2 className="text-center bg-emerald-400 font-semibold text-2xl text-white drop-shadow-md shadow-md py-5">
+          <h2 className="lists-text h-56 -rotate-180 bg-emerald-400 text-center text-2xl font-semibold text-white shadow-md drop-shadow-md sm:h-fit sm:rotate-0 sm:py-5 ">
             Lists
           </h2>
         </div>
-        <div className="bg-teal-100">
-          <ul className="text-lg font-medium flex flex-col gap-5 leading-relaxed py-5 text-cyan-800">
+        <div className=" h-full w-full">
+          <ul className="mx-auto flex w-[80%] gap-5 py-16 text-lg font-medium leading-relaxed text-cyan-800 sm:flex-col sm:py-5">
             {this.state.tasks
               ? this.state.tasks.map((elem) => {
                   return (
                     <li
                       key={elem}
-                      className="ml-2 cursor-pointer w-fit"
+                      className="ml-2 min-w-fit max-w-full cursor-pointer rounded-xl bg-teal-200 px-6 py-4 transition-all duration-300 hover:bg-teal-300"
                       onClick={() => {
                         this.changeSheet(elem);
                       }}

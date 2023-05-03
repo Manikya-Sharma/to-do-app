@@ -15,14 +15,14 @@ export default class Tasks extends Component {
 
   render() {
     return (
-      <div className="flex-grow">
+      <div className="flex-grow overflow-hidden">
         <div>
-          <h2 className="text-center bg-emerald-600 font-semibold text-2xl text-slate-200 drop-shadow-md shadow-md py-5">
+          <h2 className="bg-emerald-600 py-5 text-center text-2xl font-semibold text-slate-200 shadow-md drop-shadow-md">
             Tasks
           </h2>
         </div>
-        <div className="bg-teal-200 pb-auto">
-          <ul className="text-lg font-medium flex flex-col gap-5 leading-relaxed py-5 text-cyan-900">
+        <div className="h-full bg-teal-200">
+          <ul className="flex flex-col gap-5 py-5 text-lg font-medium leading-relaxed text-cyan-900">
             {this.state.tasks[this.props.currentSheet]
               ? this.state.tasks[this.props.currentSheet][1].map((elem) => {
                   return (

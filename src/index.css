@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  @media (max-width: 640px) {
+    .lists-text {
+      writing-mode: vertical-rl;
+    }
+  }
+}
