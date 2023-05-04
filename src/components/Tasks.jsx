@@ -4,14 +4,43 @@ import PropTypes from "prop-types";
 
 export default class Tasks extends Component {
   state = {
+    username: "",
+    password: "",
     tasks: [],
   };
 
   async componentDidMount() {
-    const response = await fetch("../src/data/userData.json");
+    const response = await fetch("http://localhost:8000");
     const data = await response.json();
-    this.setState({ tasks: data.tasks });
+    this.setState(data);
   }
+
+  findTask = (tasks, sheet, title) => {
+    let index2 = 0;
+    for (const taskNum of tasks[sheet][1]) {
+      if (taskNum[0] == title) {
+        break;
+      }
+      index2 = index2 + 1;
+    }
+    return [sheet, index2];
+  };
+
+  taskCompletion = (title) => {
+    const [i1, i2] = this.findTask(
+      this.state.tasks,
+      this.props.currentSheet,
+      title
+    );
+    const data = this.state;
+    data.tasks[i1][1].splice(i2, 1);
+    console.log(data);
+    fetch("http://localhost:8000/changeData", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+  };
 
   render() {
     return (
@@ -27,7 +56,11 @@ export default class Tasks extends Component {
               ? this.state.tasks[this.props.currentSheet][1].map((elem) => {
                   return (
                     <li key={elem[0]} className="ml-2">
-                      <Task title={elem[0]} desc={elem[1]} />
+                      <Task
+                        title={elem[0]}
+                        desc={elem[1]}
+                        completionFunc={this.taskCompletion}
+                      />
                     </li>
                   );
                 })

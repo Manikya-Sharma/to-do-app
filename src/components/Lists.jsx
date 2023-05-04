@@ -11,7 +11,7 @@ export default class Lists extends Component {
   }
 
   async componentDidMount() {
-    const response = await fetch("../src/data/userData.json");
+    const response = await fetch("http://localhost:8000");
     const data = await response.json();
     this.setState({ tasks: data.tasks });
   }

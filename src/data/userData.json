@@ -5,10 +5,6 @@
     [
       "Sample list 1",
       [
-        [
-          "t1",
-          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis natus placeat quos ipsum veritatis id excepturi ea illo sed eaque atque consectetur hic modi possimus, distinctio dolore adipisci dignissimos fuga fugiat vero cumque consequuntur ad! Enim pariatur excepturi adipisci deserunt nostrum odio nisi, nemo esse recusandae ipsa neque qui atque voluptate eaque autem vitae. Quisquam, tempore!"
-        ],
         ["t2", "description of t2"],
         ["t3", "description of t3"],
         ["t4", "description of t4"],
