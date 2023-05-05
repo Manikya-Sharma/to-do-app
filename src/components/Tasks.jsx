@@ -40,7 +40,16 @@ export default class Tasks extends Component {
     );
     const data = this.state;
     data.tasks[i1][1].splice(i2, 1);
-    console.log(data);
+    fetch("http://localhost:8000/changeData", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+  };
+
+  addNewTask = (taskName, taskDescription) => {
+    const data = this.state;
+    data.tasks[this.props.currentSheet][1].push([taskName, taskDescription]);
     fetch("http://localhost:8000/changeData", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -51,13 +60,25 @@ export default class Tasks extends Component {
   render() {
     return (
       <div className="flex-grow overflow-hidden">
-        <div className="flex justify-around bg-emerald-600 py-5 shadow-md drop-shadow-md text-2xl font-semibold text-slate-200">
+        <div className="flex justify-around bg-emerald-600 py-5 text-2xl font-semibold text-slate-200 shadow-md drop-shadow-md">
           <div>
-            <h2 className="text-5xl text-center">
-              Tasks {this.state.tasks[this.props.currentSheet]?<> - {this.state.tasks[this.props.currentSheet][0]}</>: ""}
+            <h2 className="text-center text-5xl">
+              Tasks{" "}
+              {this.state.tasks[this.props.currentSheet] ? (
+                <> - {this.state.tasks[this.props.currentSheet][0]}</>
+              ) : (
+                ""
+              )}
             </h2>
           </div>
-          <button className="py-2 px-5 bg-green-300 text-black/80 hover:bg-green-100 hover:text-black rounded-xl transition-all duration-300 border-2 border-green-300 hover:border-green-500 shadow-lg hover:text-[1.55rem]">
+          <button
+            className="rounded-xl border-2 border-green-300 bg-green-300 px-5 py-2 text-black/80 shadow-lg transition-all duration-300 hover:border-green-500 hover:bg-green-100 hover:text-[1.55rem] hover:text-black"
+            onClick={() => {
+              const taskName = prompt("Enter the name of the task:-");
+              const taskDescription = prompt("Enter the description:-");
+              this.addNewTask(taskName, taskDescription);
+            }}
+          >
             + New Task
           </button>
         </div>

@@ -1,5 +1,6 @@
 import { Component } from "react";
 import PropTypes from "prop-types";
+import Sheet from "./Sheet";
 
 export default class Lists extends Component {
   state = {
@@ -24,6 +25,35 @@ export default class Lists extends Component {
     this.setState(data);
   }
 
+  makeNewSheet = (sheetName) => {
+    const data = this.state;
+    this.props.sheetChanger(data.tasks.length);
+    data.tasks.push([sheetName, []]);
+    fetch("http://localhost:8000/changeData", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+  };
+
+  sheetDeletion = (sheetList) => {
+    const data = this.state;
+    let count = 0;
+    for (const sheet of data.tasks) {
+      if (sheet == sheetList) {
+        break;
+      }
+      count = count + 1;
+    }
+    this.props.sheetChanger(count - 1);
+    data.tasks.splice(count, 1);
+    fetch("http://localhost:8000/changeData", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+  };
+
   render() {
     return (
       <div className="flex overflow-x-auto overflow-y-hidden border-t-2 bg-teal-100 sm:mx-auto sm:block sm:w-[30%] sm:border-none">
@@ -39,19 +69,26 @@ export default class Lists extends Component {
                   return (
                     <li
                       key={elem}
-                      className="ml-2 min-w-fit max-w-full cursor-pointer rounded-xl bg-teal-200 px-6 py-4 transition-all duration-300 hover:bg-teal-300"
+                      className="w-full"
                       onClick={() => {
                         this.changeSheet(elem);
                       }}
                     >
-                      {elem[0]}
+                      <Sheet
+                        sheetList={elem}
+                        sheetChanger={this.props.sheetChanger}
+                        deleteSheet={this.sheetDeletion}
+                      />
                     </li>
                   );
                 })
               : ""}
             <li
-              className="ml-2 min-w-fit max-w-full cursor-pointer rounded-xl bg-teal-200 px-6 py-4 transition-all duration-300 hover:bg-teal-300 border-[5px] border-dotted border-teal-400 hover:border-teal-800 hover:text-xl"
-              onClick={{}}
+              className="ml-2 min-w-fit max-w-full cursor-pointer rounded-xl border-[5px] border-dotted border-teal-400 bg-teal-200 px-6 py-4 text-center transition-all duration-300 hover:border-teal-800 hover:bg-teal-300 hover:tracking-widest"
+              onClick={() => {
+                const name = prompt("Enter the name of the new sheet:-");
+                this.makeNewSheet(name);
+              }}
             >
               + New Sheet
             </li>
