@@ -1,29 +1,8 @@
 {
-  "username": "ManikyaSharma",
-  "password": "12345",
+  "username": "",
+  "password": "",
   "tasks": [
-    [
-      "Sample list 1",
-      [
-        ["t4", "description of t4"],
-        ["t5", "description of t5"],
-        ["t6", "description of t6"],
-        ["t7", "description of t7"],
-        ["t8", "description of t8"],
-        ["t9", "description of t9"],
-        ["ta", "description of ta"],
-        ["tb", "description of tb"],
-        ["my new task", "hello"]
-      ]
-    ],
-    [
-      "Sample list 2",
-      [
-        ["t4", "description of t4"],
-        ["another task", "This is another task"]
-      ]
-    ],
-    ["Sample list 3", [["t6", "description of t6"]]],
-    ["Sample list 4", [["My New Task ", "my task description"]]]
+    ["List 1", [["my Task", "Hello"]]],
+    ["List 2", [["Task 3", "A new task"]]]
   ]
 }

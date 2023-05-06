@@ -6,7 +6,7 @@ import Footer from "./components/Footer";
 function App() {
   const [data, setData] = useState("");
   useEffect(() => {
-    fetch("http://localhost:8000/message")
+    fetch("http://localhost:8001/message")
       .then((res) => res.json())
       .then((data) => setData(data.message));
   }, []);

@@ -10,13 +10,13 @@ export default class Tasks extends Component {
   };
 
   async componentDidMount() {
-    const response = await fetch("http://localhost:8000");
+    const response = await fetch("http://localhost:8001");
     const data = await response.json();
     this.setState(data);
   }
 
   async componentDidUpdate() {
-    const response = await fetch("http://localhost:8000");
+    const response = await fetch("http://localhost:8001");
     const data = await response.json();
     this.setState(data);
   }
@@ -40,7 +40,7 @@ export default class Tasks extends Component {
     );
     const data = this.state;
     data.tasks[i1][1].splice(i2, 1);
-    fetch("http://localhost:8000/changeData", {
+    fetch("http://localhost:8001/changeData", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
@@ -50,7 +50,22 @@ export default class Tasks extends Component {
   addNewTask = (taskName, taskDescription) => {
     const data = this.state;
     data.tasks[this.props.currentSheet][1].push([taskName, taskDescription]);
-    fetch("http://localhost:8000/changeData", {
+    fetch("http://localhost:8001/changeData", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+  };
+
+  changeTask = (taskName, newTaskName, newTaskDescription) => {
+    const [i1, i2] = this.findTask(
+      this.state.tasks,
+      this.props.currentSheet,
+      taskName
+    );
+    const data = this.state;
+    data.tasks[i1][1][i2] = [newTaskName, newTaskDescription];
+    fetch("http://localhost:8001/changeData", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
@@ -72,7 +87,7 @@ export default class Tasks extends Component {
             </h2>
           </div>
           <button
-            className="rounded-xl border-2 border-green-300 bg-green-300 px-5 py-2 text-black/80 shadow-lg transition-all duration-300 hover:border-green-500 hover:bg-green-100 hover:text-[1.55rem] hover:text-black"
+            className="rounded-xl border-2 border-green-300 bg-green-300 px-5 py-2 text-black/80 shadow-lg transition-all duration-300 hover:border-green-500 hover:bg-green-100 hover:text-black"
             onClick={() => {
               const taskName = prompt("Enter the name of the task:-");
               const taskDescription = prompt("Enter the description:-");
@@ -92,6 +107,7 @@ export default class Tasks extends Component {
                         title={elem[0]}
                         desc={elem[1]}
                         completionFunc={this.taskCompletion}
+                        editFunc={this.changeTask}
                       />
                     </li>
                   );
